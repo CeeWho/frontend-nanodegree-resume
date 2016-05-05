@@ -14,6 +14,10 @@ h6 {
   font-family: "Roboto", sans-serif;
 }
 
+.project-img {
+  height: 100px;
+}
+
 .clear-fix {
   overflow: auto;
 }
