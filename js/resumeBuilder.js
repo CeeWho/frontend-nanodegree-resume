@@ -112,7 +112,7 @@ var education = {
 bio.display = function (){
 	var headerName = HTMLheaderName.replace("%data%", bio.name);
 	var headerRole = HTMLheaderRole.replace("%data%", bio.role);
-	var contactInfo = HTMLcontactGeneric.replace("%contact%", "Contact info:");
+	//var contactInfo = HTMLcontactGeneric.replace("%contact%", "");
 
 
 	function contactStr(allContact) {
@@ -122,7 +122,8 @@ bio.display = function (){
 		var github = HTMLgithub.replace("%data%", allContact.github);
 		return location+mobile+email+github;
 	}
-	var contactInfo = contactInfo.replace("%data%", contactStr(bio.contacts));
+	
+	var contactInfo = contactStr(bio.contacts);
 	var bioPic = HTMLbioPic.replace("%data%", bio.biopic);
 	var welcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
 
@@ -136,13 +137,16 @@ bio.display = function (){
 		allSkills += HTMLskills.replace("%data%",skill);
 
 	});
-	$('#header').append(headerName);
-	$('#header').append(headerRole);
-	$('#header').append(bioPic);
-	$('#header').append(welcomeMessage);
-	$('#header').append(HTMLskillsStart);
-	$("#skills").append(allSkills);
+
+	var HTMLheaderInfo = headerName+headerRole
+	var otherBioInfo = welcomeMessage+bioPic+HTMLskillsStart;
+
+	$('#header').prepend(HTMLheaderInfo);
 	$('#topContacts').append(contactInfo);
+	$('#footerContacts').append(contactInfo);
+	$('#header').append(otherBioInfo);
+	$("#skills").append(allSkills);
+
 }
 
 work.display = function(){
@@ -218,8 +222,9 @@ education.display = function () {
 		var courseTitle = HTMLonlineTitle.replace("%data%", course.title);
 		var courseSchool = HTMLonlineSchool.replace("%data%", course.school);
 		var courseDates = HTMLonlineDates.replace("%data%", course.dates);
-		var courseURL = HTMLonlineURL.replace(/%data%|#/g, course.url);
+		var courseURL = HTMLonlineURL.replace(/%data%/g, course.url);
 		var HTMLcourseEntry = courseTitle + courseSchool + courseDates + courseURL;
+		HTMLcourseEntry = HTMLcourseEntry.replace(/#/g, course.url);
 		$('#education').append(HTMLschoolStart);
 		$('.education-entry:last').append(HTMLcourseEntry);
 	});
