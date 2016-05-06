@@ -39,38 +39,40 @@ var work = {
     }]
 };
 
-var projects = [{
-    "title": "A Story or Two [Working Title]",
-    "dates": "June 2015",
-    "description": "Worked as an Assistant Director for this short about a couple and a first date at a restaurant.",
-    "images": [
-        "images/storyor2.jpg", "images/storyor2-2.jpg"
-    ]
-}, {
-    "title": "Meeting What's His Face",
-    "dates": "April 2015",
-    "description": "Worked as the production designer for this comedy short about a woman who finds a man stuck in a ceiling and helps him out, literally.",
-    "images": [
-        "images/mwhf.jpg"
-    ]
-}, {
-    "title": "Forests of Cumbria",
-    "dates": "February - March 2015",
-    "description": "Worked as a grip for the production of this darkly comedic medieval period piece.",
-    "images": [
-        "images/forests.jpg"
-    ],
-    "url": "https://www.facebook.com/theforestsofcumbria/"
+var projects = {
+  "projects":[{
+      "title": "A Story or Two [Working Title]",
+      "dates": "June 2015",
+      "description": "Worked as an Assistant Director for this short about a couple and a first date at a restaurant.",
+      "images": [
+          "images/storyor2.jpg", "images/storyor2-2.jpg"
+      ]
+  }, {
+      "title": "Meeting What's His Face",
+      "dates": "April 2015",
+      "description": "Worked as the production designer for this comedy short about a woman who finds a man stuck in a ceiling and helps him out, literally.",
+      "images": [
+          "images/mwhf.jpg"
+      ]
+  }, {
+      "title": "Forests of Cumbria",
+      "dates": "February - March 2015",
+      "description": "Worked as a grip for the production of this darkly comedic medieval period piece.",
+      "images": [
+          "images/forests.jpg"
+      ],
+      "url": "https://www.facebook.com/theforestsofcumbria/"
 
-}, {
-    "title": "VexX - Red Lights",
-    "dates": "October 2013",
-    "description": "Worked as an extra and first unit assistant director on this surreal music video.",
-    "images": [
-        "images/vexx.jpg"
-    ],
-    "url": "https://www.youtube.com/watch?v=lQ3O28PV-rI"
-}];
+  }, {
+      "title": "VexX - Red Lights",
+      "dates": "October 2013",
+      "description": "Worked as an extra and first unit assistant director on this surreal music video.",
+      "images": [
+          "images/vexx.jpg"
+      ],
+      "url": "https://www.youtube.com/watch?v=lQ3O28PV-rI"
+  }]
+};
 
 var education = {
     "schools": [{
@@ -78,25 +80,25 @@ var education = {
         "location": "Palo Alto, CA",
         "degree": "Masters of Science",
         "majors": ["Biophysical Chemistry"],
-        "dates": 2012,
+        "dates": "September 2010 - April 2012",
         "url": "http://www.stanford.edu"
     }, {
         "name": "Emory University",
         "location": "Atlanta, GA",
         "degree": "Bachelors of Science",
         "majors": ["Chemistry", "Film Studies"],
-        "dates": 2010,
+        "dates": "September 2006 - 2010",
         "url": "http://www.emory.edu"
     }],
     "onlineCourses": [{
         "title": "Front-End Web Development Nanodegree",
         "school": "Udacity",
-        "dates": "June 2015 - Present",
+        "date": "June 2015 - Present",
         "url": "https://www.udacity.com/course/front-end-web-developer-nanodegree--nd001"
     }, {
         "title": "Beginner Ruby Nanodegree",
         "school": "Udacity",
-        "dates": "February 2016 - Present",
+        "date": "February 2016 - Present",
         "url": "https://www.udacity.com/"
     }]
 };
@@ -174,7 +176,7 @@ projects.display = function() {
     }
 
 
-    projects.forEach(function(projEntry) {
+    projects.projects.forEach(function(projEntry) {
 
         var HTMLprojEntry = getProjEntry(projEntry);
         $('#projects').append(HTMLprojectStart);
@@ -199,7 +201,8 @@ education.display = function() {
             schoolMajors += " " + major;
         });
         schoolMajors = HTMLschoolMajor.replace("%data%", schoolMajors);
-        var HTMLschoolEntry = schoolName + schoolDegree + schoolDates + schoolMajors;
+        var schoolLoc = HTMLschoolLocation.replace("%data%",school.location);
+        var HTMLschoolEntry = schoolName + schoolDegree + schoolLoc + schoolDates + schoolMajors;
 
         $('#education').append(HTMLschoolStart);
         $('.education-entry:last').append(HTMLschoolEntry);
@@ -211,7 +214,7 @@ education.display = function() {
     education.onlineCourses.forEach(function(course) {
         var courseTitle = HTMLonlineTitle.replace("%data%", course.title);
         var courseSchool = HTMLonlineSchool.replace("%data%", course.school);
-        var courseDates = HTMLonlineDates.replace("%data%", course.dates);
+        var courseDates = HTMLonlineDates.replace("%data%", course.date);
         var courseURL = HTMLonlineURL.replace(/%data%/g, course.url);
         var HTMLcourseEntry = courseTitle + courseSchool + courseDates + courseURL;
         HTMLcourseEntry = HTMLcourseEntry.replace(/#/g, course.url);
