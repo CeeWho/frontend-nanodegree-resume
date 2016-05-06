@@ -10,7 +10,8 @@ var bio = {
         "mobile": "8609127249",
         "email": "calvinlhu@gmail.com",
         "location": "SF Bay Area, CA",
-        "github": "Coming Soon!"
+        "github": "https://github.com/CeeWho"
+        //I don't have a twitter, nor do I want one. "twitter": ""
     },
     "skills": ["Editing", "Directing", "Producing", "Interviewing", "Research", "Videography"],
     "biopic": "images/fry.jpg"
@@ -18,19 +19,19 @@ var bio = {
 
 var work = {
     "jobs": [{
-        "company": "Udacity",
+        "employer": "Udacity",
         "title": "Video Producer",
         "dates": "April 2015 - Present",
         "location": "Mountain View, CA",
         "description": "Created marketing videos"
     }, {
-        "company": "Udacity",
+        "employer": "Udacity",
         "title": "Video Production Lead",
         "dates": "March 2012 - April 2015",
         "location": "Mountain View, CA",
         "description": "Created courses"
     }, {
-        "company": "Stanford University",
+        "employer": "Stanford University",
         "title": "Research Assistant",
         "dates": "July 2011 - April 2012",
         "location": "Palo Alto, CA",
@@ -77,14 +78,14 @@ var education = {
         "location": "Palo Alto, CA",
         "degree": "Masters of Science",
         "majors": ["Biophysical Chemistry"],
-        "dates": "September 2010 - April 2012",
+        "dates": 2012,
         "url": "http://www.stanford.edu"
     }, {
         "name": "Emory University",
         "location": "Atlanta, GA",
         "degree": "Bachelors of Science",
         "majors": ["Chemistry", "Film Studies"],
-        "dates": "September 2006 - May 2010",
+        "dates": 2010,
         "url": "http://www.emory.edu"
     }],
     "onlineCourses": [{
@@ -118,12 +119,6 @@ bio.display = function() {
     var contactInfo = contactStr(bio.contacts);
     var bioPic = HTMLbioPic.replace("%data%", bio.biopic);
     var welcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-
-    /*	function displaySkill(skillName) {
-    		var HTMLskillStr = HTMLskills.replace("%data%",skillName)
-    		return HTMLskillStr;
-    	}*/
-
     var allSkills = "";
     bio.skills.forEach(function(skill) {
         allSkills += HTMLskills.replace("%data%", skill);
@@ -134,16 +129,14 @@ bio.display = function() {
     var otherBioInfo = welcomeMessage + bioPic + HTMLskillsStart;
 
     $('#header').prepend(HTMLheaderInfo);
-    $('#topContacts').append(contactInfo);
-    $('#footerContacts').append(contactInfo);
+    $('#topContacts,#footerContacts').append(contactInfo);
     $('#header').append(otherBioInfo);
     $("#skills").append(allSkills);
-
 };
 
 work.display = function() {
     function getWorkEntry(workObj) {
-        var workName = HTMLworkEmployer.replace("%data%", workObj.company);
+        var workName = HTMLworkEmployer.replace("%data%", workObj.employer);
         var workTitle = HTMLworkTitle.replace("%data%", workObj.title);
         var workDates = HTMLworkDates.replace("%data%", workObj.dates);
         var workLoc = HTMLworkLocation.replace("%data%", workObj.location);
@@ -152,9 +145,7 @@ work.display = function() {
         return HTMLworkData;
     }
 
-
     work.jobs.forEach(function(workEntry) {
-
         var HTMLworkEntry = getWorkEntry(workEntry);
         $('#workExperience').append(HTMLworkStart);
         $('.work-entry:last').append(HTMLworkEntry);
@@ -169,12 +160,15 @@ projects.display = function() {
         } else {
             projectTitle = projectTitle.replace("#", '#projects');
         }
+
         var projectDates = HTMLprojectDates.replace("%data%", projObj.dates);
         var projectDesc = HTMLprojectDescription.replace("%data%", projObj.description);
         var projectImgs = "";
+
         projObj.images.forEach(function(imgURL) {
             projectImgs += HTMLprojectImage.replace("%data%", imgURL);
         });
+
         var HTMLprojData = projectTitle + projectDates + projectDesc + projectImgs;
         return HTMLprojData;
     }
@@ -191,11 +185,13 @@ projects.display = function() {
 education.display = function() {
     education.schools.forEach(function(school) {
         var schoolName = HTMLschoolName.replace("%data%", school.name);
+
         if (school.url) {
             schoolName = schoolName.replace("#", school.url);
         } else {
             schoolName = schoolName.replace("#", '#education');
         }
+
         var schoolDegree = HTMLschoolDegree.replace("%data%", school.degree);
         var schoolDates = HTMLschoolDates.replace("%data%", school.dates);
         var schoolMajors = "";
